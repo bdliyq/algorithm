@@ -11,21 +11,23 @@ class Solution:
     """
     def maxSubArray(self, nums):
         # write your code here
-        summary = 0
-        max_result = 0
-        max_element = -sys.maxint
+        if len(nums) == 0:
+            return 0
 
-        for n in nums:
-            summary += n
+        summary = nums[0]
+        max_sum = nums[0]
+
+        for n in nums[1:]:
+            if summary > max_sum:
+                max_sum = summary
             if summary < 0:
                 summary = 0
-            max_result = max(max_result, summary)
-            max_element = max(max_element, n)
+            summary += n
 
-        if max_element < 0:
-            return max_element
+        if max_sum < summary:
+            max_sum = summary
 
-        return max_result
+        return max_sum
 
 if __name__ == '__main__':
     s = Solution()
