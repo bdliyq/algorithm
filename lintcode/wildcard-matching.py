@@ -56,19 +56,19 @@ class Solution:
     def match_with_backtrack(self, s, p):
         size_s = len(s)
         size_p = len(p)
-        point_s, point_p = 0, 0
+        ptr_s, ptr_p = 0, 0
         saved_s, saved_p = None, None
-        while point_s < size_s:
-            if point_p < size_p and (s[point_s] == p[point_p] or p[point_p] == '?'):
-                point_s, point_p = point_s+1, point_p+1
-            elif point_p < size_p and p[point_p] == '*':
-                saved_s, saved_p = point_s+1, point_p
-                point_p += 1
+        while ptr_s < size_s:
+            if ptr_p < size_p and (s[ptr_s] == p[ptr_p] or p[ptr_p] == '?'):
+                ptr_s, ptr_p = ptr_s+1, ptr_p+1
+            elif ptr_p < size_p and p[ptr_p] == '*':
+                saved_s, saved_p = ptr_s+1, ptr_p
+                ptr_p += 1
             elif saved_s:
-                point_s, point_p = saved_s, saved_p
+                ptr_s, ptr_p = saved_s, saved_p
             else:
                 return False
-        return p[point_p:].count('*') == size_p - point_p
+        return p[ptr_p:].count('*') == size_p - ptr_p
 
     """
     @param s: A string
