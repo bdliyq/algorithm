@@ -5,6 +5,18 @@
 
 import sys
 class Solution:
+    def another_way(self, nums):
+        dp = [0 for i in xrange(len(nums))]
+        end_max = -sys.maxint
+        for i in xrange(len(nums)):
+            if i == 0:
+                end_max = nums[0]
+                dp[i] = nums[0]
+            else:
+                end_max = max(end_max + nums[i], nums[i])
+                dp[i] = max(end_max, dp[i-1])
+        return dp[-1]
+
     """
     @param nums: A list of integers
     @return: An integer denote the sum of maximum subarray
@@ -33,3 +45,5 @@ if __name__ == '__main__':
     s = Solution()
     print s.maxSubArray([-2,2,-3,4,-1,2,1,-5,3])
     print s.maxSubArray([-2,-1,-2,-3,-4,-5])
+    print s.another_way([-2,2,-3,4,-1,2,1,-5,3])
+    print s.another_way([-2,-1,-2,-3,-4,-5])

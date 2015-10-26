@@ -1,5 +1,7 @@
 // Question: http://www.lintcode.com/en/problem/regular-expression-matching/
 
+#include <iostream>
+
 class Solution {
 public:
     /**
@@ -26,4 +28,11 @@ public:
         return isMatch(s, p+2);
     }
 
+};
+
+int main(int argc, char** argv) {
+    Solution s;
+    bool ret = s.isMatch("ba", "b*");
+    std::cout << (ret ? "true" : "false") << std::endl;
+    return 0;
 }
