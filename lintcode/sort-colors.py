@@ -14,25 +14,26 @@ class Solution:
             return
 
         p, q = 0, len(nums) - 1
-        r = p
+        r = 0
         while r <= q:
             if nums[r] == 0:
-                nums[r], nums[p] = nums[p], nums[r]
-                while p < len(nums) and nums[p] == 0:
-                    p += 1
-                if r < p:
-                    r = p
+                if r > p:
+                    nums[r], nums[p] = nums[p], nums[r]
+                else:
+                    r += 1
+                p += 1
             elif nums[r] == 1:
                 r += 1
-            else:  # nums[r] == 2
-                nums[r], nums[q] = nums[q], nums[r]
-                while q >= 0 and nums[q] == 2:
+            else:
+                if r < q:
+                    nums[r], nums[q] = nums[q], nums[r]
                     q -= 1
-        print p,r,q,nums
-        return r
+                else:
+                    break
 
 if __name__ == '__main__':
     s = Solution()
     for array in [[0,0,0,1,1,0,0,1,0],[2,0,0,1,2,0,2],[1,0,1,2],[0,2,2,2,2,1,0,1,0,0,0,1,0,2,0]]:
-        r = s.sortColors(array)
+        s.sortColors(array)
+        print array
 

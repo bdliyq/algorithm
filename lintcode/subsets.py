@@ -5,14 +5,28 @@
 
 class Solution:
     def work_with_recursion(self, s, path, res):
-        res.append(path)
+        res.append(path[:])
         if len(s) == 0:
             return
 
         for i in xrange(len(s)):
-            path_copy = path[:]
-            path_copy.append(s[i])
-            self.work_with_recursion(s[i+1:], path_copy, res)
+            path.append(s[i])
+            self.work_with_recursion(s[i+1:], path, res)
+            path.pop()
+
+    def work_with_iteration(self, s):
+        ans = [[]]
+        if not s:
+            return ans
+
+        for c in s:
+            count = len(ans)
+            for i in xrange(count):
+                ac = ans[i][:]
+                ac.append(c)
+                ans.append(ac)
+
+        return ans
 
     """
     @param S: The set of numbers.
@@ -20,9 +34,10 @@ class Solution:
     """
     def subsets(self, S):
         # write your code here
-        res = []
-        self.work_with_recursion(sorted(S), [], res)
-        return res
+        # res = []
+        # self.work_with_recursion(sorted(S), [], res)
+        # return res
+        return self.work_with_iteration(sorted(S))
 
 if __name__ == '__main__':
     s = Solution()

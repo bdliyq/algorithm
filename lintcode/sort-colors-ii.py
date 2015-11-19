@@ -5,29 +5,31 @@
 
 class Solution:
     def sort_colors(self, colors, start_pos, end_pos, start_k, end_k):
-        if start_pos >= end_pos or start_k >= end_k:
+        if start_k >= end_k or start_pos >= end_pos:
             return
 
         p = start_pos
         q = end_pos
         r = p
-        k = (start_k + end_k) / 2
+        k = (start_k + end_k)/2
         while r <= q:
             if colors[r] < k:
-                colors[r], colors[p] = colors[p], colors[r]
-                while p <= end_pos and colors[p] < k:
-                    p += 1
-                if r < p:
-                    r = p
+                if r > p:
+                    colors[r], colors[p] = colors[p], colors[r]
+                else:
+                    r += 1
+                p += 1
             elif colors[r] == k:
                 r += 1
-            else:  # color[r] > k
-                colors[r], colors[q] = colors[q], colors[r]
-                while q >= start_pos and colors[q] > k:
+            else:
+                if r < q:
+                    colors[r], colors[q] = colors[q], colors[r]
                     q -= 1
+                else:
+                    break
 
-        self.sort_colors(colors, start_pos, p - 1, start_k, k - 1)
-        self.sort_colors(colors, r, end_pos, k + 1, end_k)
+        self.sort_colors(colors, start_pos, p-1, start_k, k-1)
+        self.sort_colors(colors, r, end_pos, k+1, end_k)
 
     """
     @param colors: A list of integer
@@ -36,7 +38,7 @@ class Solution:
     """
     def sortColors2(self, colors, k):
         # write your code here
-        self.sort_colors(colors, 0, len(colors) - 1, 1, k)
+        self.sort_colors(colors, 0, len(colors)-1, 1, k)
 
 if __name__ == '__main__':
     s = Solution()
