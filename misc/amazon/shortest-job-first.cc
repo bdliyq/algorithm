@@ -1,10 +1,8 @@
-// Question: Round robin.
-// Input: [0,1,3,9], [2,1,7,5], 2
-// Expected return value: 1.0
+// Question: Shortest job first.
 
 #include <vector>
-#include <queue>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -14,37 +12,40 @@ struct Job {
     Job(int a, int e) : arrive(a), execute(e) {}
 };
 
-// Suppose the arrive is sorted.
-double round_robin(vector<int> arrive, vector<int> execute, int q) {
+bool operator < (const Job& j1, const Job& j2) {
+    if (j1.execute == j2.execute) {
+        return j1.arrive < j2.arrive;
+    }
+    return j1.execute < j2.execute;
+}
+
+double shortest_job_first(vector<int> arrive, vector<int> execute) {
     if (arrive.empty() || execute.empty() || arrive.size() != execute.size()) {
         return 0;
     }
 
-    queue<Job> jobq;
     int next_job_id = 0;
     int wait_time = 0;
     int curr_time = 0;
+    priority_queue<Job> jobq;
     while (!jobq.empty() || next_job_id < arrive.size()) {
         if (jobq.empty()) {
-            curr_time = arrive[next_job_id];
             jobq.push(Job(arrive[next_job_id], execute[next_job_id]));
+            curr_time = arrive[next_job_id];
             ++next_job_id;
         } else {
-            Job job = jobq.front();
+            Job job = jobq.top();
             jobq.pop();
 
-            wait_time += (curr_time - job.arrive);
-            curr_time += min(q, job.execute);
+            wait_time += curr_time - job.arrive;
+            curr_time += job.execute;
             while (next_job_id < arrive.size() && arrive[next_job_id] <= curr_time) {
                 jobq.push(Job(arrive[next_job_id], execute[next_job_id]));
                 ++next_job_id;
             }
-
-            if (job.execute > q) {
-                jobq.push(Job(curr_time, job.execute - q));
-            }
         }
     }
+
     return (double)wait_time / arrive.size();
 }
 
@@ -61,8 +62,6 @@ int main(int argc, char** argv) {
     execute.push_back(7);
     execute.push_back(5);
 
-    int q = 2;
-
-    std::cout << round_robin(arrive, execute, q) << std::endl;
-
+    std::cout << shortest_job_first(arrive, execute) << std::endl;;
+    return 0;
 }
