@@ -12,7 +12,7 @@ class Solution:
 
         # For odd palindrome.
         for i in xrange(len(s)):
-            j = 1
+            j = 0
             while i-j >= 0 and i+j <= len(s)-1 and s[i-j] == s[i+j]:
                 j += 1
             if len(result) < 2*j-1:
