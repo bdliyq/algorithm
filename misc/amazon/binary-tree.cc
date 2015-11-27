@@ -8,7 +8,8 @@ struct TreeNode {
     int val;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(int v) : val(v), left(NULL), right(NULL) {}
+    TreeNode* parent;
+    TreeNode(int v) : val(v), left(NULL), right(NULL), parent(NULL) {}
 };
 
 int max_depth(TreeNode* root) {
@@ -26,6 +27,32 @@ int min_depth(TreeNode* root) {
         return 1;
     }
     return min(min_depth(root->left), min_depth(root->right)) + 1;
+}
+
+// 寻找二叉搜索树的后继。
+TreeNode* minimum(TreeNode* node) {
+    if (node == NULL) {
+        return NULL;
+    }
+    while (node->left) {
+        node = node->left;
+    }
+    return node;
+}
+
+TreeNode* successor(TreeNode* node) {
+    if (node == NULL) {
+        return NULL;
+    }
+    if (node->right) {
+        return minimum(node->right);
+    }
+    TreeNode* p = node->parent;
+    while (p && p->right == node) {
+        node = p;
+        p = p->parent;
+    }
+    return p;
 }
 
 int main(int argc, char** argv) {
