@@ -33,23 +33,21 @@ class Solution:
                 visited.add(n.label)
                 for nei in n.neighbors:
                     stack.append(nei)
-                    p = nei.label
-                    while p != node_group[p]:
-                        p = node_group[p]
-                    if p == node_group[n.label]:
+                    id1 = node_group[nei.label]
+                    id2 = node_group[n.label]
+                    if id1 == id2:
                         continue
-                    node_group[p] = node_group[n.label]
+                    for the_node in nodes:
+                        if node_group[the_node.label] == id2:
+                            node_group[the_node.label] = id1
 
         results = dict()
-        for node in nodes:
-            p = node.label
-            while p != node_group[p]:
-                p = node_group[p]
-            if results.has_key(p):
-                results[p].add(node.label)
+        for kv in node_group.items():
+            if results.has_key(kv[1]):
+                results[kv[1]].add(kv[0])
             else:
-                results[p] = set()
-                results[p].add(node.label)
+                results[kv[1]] = set();
+                results[kv[1]].add(kv[0])
 
         results_array = []
         for v in results.values():
