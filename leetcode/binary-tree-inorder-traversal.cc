@@ -12,7 +12,9 @@ struct TreeNode {
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        return iterate(root);
+        // return iterate(root);
+
+        return threaded_way(root);
 
         // vector<int> ans;
         // recur(root, ans);
@@ -46,6 +48,40 @@ private:
                 s.pop();
                 ans.push_back(node->val);
                 node = node->right;
+            }
+        }
+
+        return ans;
+    }
+
+    vector<int> threaded_way(TreeNode* root) {
+        vector<int> ans;
+        if (!root) {
+            return ans;
+        }
+
+        TreeNode* current = NULL;
+        TreeNode* pre = NULL;
+
+        current = root;
+        while (current) {
+            if (current->left == NULL) {
+                ans.push_back(current->val);
+                current = current->right;
+            } else {
+                pre = current->left;
+                while (pre->right && pre->right != current) {
+                    pre = pre->right;
+                }
+
+                if (pre->right) {
+                    pre->right = NULL;
+                    ans.push_back(current->val);
+                    current = current->right;
+                } else {
+                    pre->right = current;
+                    current = current->left;
+                }
             }
         }
 
