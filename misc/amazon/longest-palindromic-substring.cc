@@ -13,7 +13,7 @@ string longest_palindromic_substring(string s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int j = 0;
-        while (i-j >= 0 && i-j < s.size() && s[i-j] == s[i+j]) {
+        while (i-j >= 0 && i+j < s.size() && s[i-j] == s[i+j]) {
             ++j;
         }
         if (2*j-1 > ans.size()) {
