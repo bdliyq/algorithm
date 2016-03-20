@@ -25,4 +25,50 @@ public:
         }
         return ans;
     }
+
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (!root || !p) {
+            return root;
+        }
+
+        if (p->right) {
+            auto n = p->right;
+            while (n->left) {
+                n = n->left;
+            }
+            return n;
+        }
+
+        auto successor = NULL;
+        auto ancessor = root;
+        while (ancessor != p) {
+            if (ancessor->val <= p->val) {
+                ancessor = ancessor->right;
+            } else {
+                successor = ancessor;
+                ancessor = ancessor->left;
+            }
+        }
+        return successor;
+    }
+
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (!root || !p) {
+            return root;
+        }
+
+        if (p->right) {
+            auto n = p->right;
+            while (n->left) {
+                n = n->left;
+            }
+            return n;
+        }
+
+        auto parent = p->parent;
+        while (parent && parent->val < p->val) {
+            parent = parent->parent;
+        }
+        return parent;
+    }
 };

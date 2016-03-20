@@ -30,4 +30,21 @@ public:
             root->left = NULL;
         }
     }
+
+    void flatten(TreeNode* root) {
+        auto node = root;
+        while (node) {
+            if (node->left) {
+                auto prev = node->left;
+                while (prev->right) {
+                    prev = prev->right;
+                }
+                prev->right = node->right;
+                node->right = node->left;
+                node->left = NULL;
+            }
+            // node->right->left = node;
+            node = node->right;
+        }
+    }
 };

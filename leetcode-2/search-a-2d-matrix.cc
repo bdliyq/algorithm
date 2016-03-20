@@ -14,8 +14,8 @@ public:
         int high = row * col - 1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
+            int i = mid / col;
             int j = mid % col;
-            int i = (mid - j) / col;
             if (matrix[i][j] == target) {
                 return true;
             } else if (matrix[i][j] < target) {
