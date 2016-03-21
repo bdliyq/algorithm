@@ -1,13 +1,12 @@
 // Question: https://leetcode.com/problems/merge-k-sorted-lists/
 
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+#include "headers.h"
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 
 struct cmp {
     bool operator () (ListNode* n1, ListNode* n2) {
@@ -47,3 +46,6 @@ public:
         return dummy.next;
     }
 };
+
+int main(int argc, char** argv) {
+}
