@@ -71,4 +71,64 @@ public:
         }
         return parent;
     }
+
+    // NOT bst, node with parent link.
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (!root || !p) {
+            return NULL;
+        }
+
+        if (p->right) {
+            p = p->right;
+            while (p->left) {
+                p = p->left;
+            }
+            return p;
+        }
+
+        auto parent = p->parent;
+        while (parent && parent->left != p) {
+            p = parent;
+            parent = p->parent;
+        }
+        return parent;
+    }
+
+    // NOT bst, node without parent link.
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (!root || !p) {
+            return NULL;
+        }
+
+        auto node = root;
+        TreeNode* prev = NULL;
+
+        while (node) {
+            if (node->left == NULL) {
+                if (p == prev) {
+                    return node;
+                }
+                prev = node;
+                node = node->right;
+            } else {
+                auto p = node->left;
+                while (p->right && p->right != node) {
+                    p = p->right;
+                }
+                if (p->right) {
+                    p->right = NULL;
+                    if (p == prev) {
+                        return node;
+                    }
+                    prev = node;
+                    node = node->right;
+                } else {
+                    p->right = node;
+                    node = node->left;
+                }
+            }
+        }
+        // p is the last node.
+        return NULL;
+    }
 };
