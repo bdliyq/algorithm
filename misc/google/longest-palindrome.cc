@@ -16,6 +16,7 @@ string solve(string s) {
         if (ans.size() < 2*j) {
             ans = s.substr(i-j+1, 2*j);
         }
+        ++i;
     }
     return ans;
 }
