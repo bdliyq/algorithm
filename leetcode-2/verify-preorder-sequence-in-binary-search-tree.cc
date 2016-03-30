@@ -18,10 +18,8 @@ public:
 
         int root = preorder[start];
         int i = start + 1;
-        while (i < end) {
-            if (preorder[i] < root) {
-                ++i;
-            }
+        while (i < end && preorder[i] < root) {
+            ++i;
         }
 
         if (i == end) {
