@@ -1,5 +1,7 @@
 // Question: 找到只包含2个distinct ASCII character的最长substring。
 
+#include "headers.h"
+
 string solve(string s) {
     unordered_map<char, int> m;
     int len = s.size();
@@ -31,4 +33,8 @@ string solve(string s) {
     }
 
     return s.substr(start, max_len);
+}
+
+int main(int argc, char** argv) {
+    cout << solve("a") << endl;
 }
