@@ -21,7 +21,7 @@ int solve(vector<Interval>& meetings) {
     priority_queue<int> pq;
     pq.push(meetings[0].end);
     for (int i = 1; i < meetings.size(); ++i) {
-        if (meetings[i].end >= pq.front()) {
+        if (meetings[i].start >= pq.front()) {
             pq.pop();
         }
         pq.push(meetings[i].end);
