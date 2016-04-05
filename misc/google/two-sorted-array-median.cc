@@ -16,7 +16,7 @@ int find_kth(vector<int> a, vector<int> b, int k) {
     }
 
     int lena = a.size(), lenb = b.size();
-    if (a == 0) {
+    if (lena == 0) {
         return b[k-1];
     }
     if (k == 1) {
