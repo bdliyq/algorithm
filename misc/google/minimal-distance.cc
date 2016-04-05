@@ -42,3 +42,73 @@ int main(int argc, char** argv) {
         cout << n << " ";
     }
 }
+
+
+
+
+public String reArrangeChar(String str, int k) {
+                if (str == null || str.length() == 0) {
+                        return str;. more info on 1point3acres.com
+                }
+
+                int len = str.length();
+
+                //count the freq of every char
+                Map<Character, Node> map = new HashMap<>();
+                for (int i = 0; i < str.length(); i++) {
+                        char c = str.charAt(i);
+                        if (!map.containsKey(c)) {
+                                Node temp = new Node(c);
+                                temp.freq++;
+                                map.put(c, temp);
+                        } else {
+                                map.get(c).freq++;
+                        }
+                }
+
+                //Put them into Heap
+                Queue<Node> heap = new PriorityQueue<Node>(10, new MyComparator());
+                for (Node node : map.values()) {
+                        heap.offer(node);. visit 1point3acres.com for more.
+                }
+
+                StringBuilder sb = new StringBuilder();
+                Queue<Node> q = new LinkedList<>();
+                for (int currIndex = 0; currIndex < len; currIndex++) {
+                        if (!q.isEmpty() && q.peek().lastPos + k < currIndex) {
+                                heap.offer(q.poll());
+                        }
+                        
+                        if (heap.isEmpty()) {
+                                return "Not Valid";
+                        }
+                        
+                        Node curr = heap.poll();
+                        curr.lastPos = currIndex;
+                        curr.freq--;
+                        
+                        sb.append(curr.c);
+                        
+                        if (curr.freq != 0) q.offer(curr);
+                }
+                return sb.toString();
+                
+        }
+        class Node {
+                char c;
+                int freq;
+                int lastPos;
+
+                public Node(char c) {
+                        this.c = c;
+                }
+        }
+
+        class MyComparator implements Comparator<Node> {
+                public int compare(Node one, Node two) {
+                        if (one.freq != two.freq) {
+                                return one.freq > two.freq ? -1 : 1;
+                        }
+                        return one.c - two.c;
+                }
+        }
