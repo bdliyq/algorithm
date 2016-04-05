@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 
 public String reArrangeChar(String str, int k) {
                 if (str == null || str.length() == 0) {
-                        return str;. more info on 1point3acres.com
+                        return str;
                 }
 
                 int len = str.length();
@@ -69,7 +69,7 @@ public String reArrangeChar(String str, int k) {
                 //Put them into Heap
                 Queue<Node> heap = new PriorityQueue<Node>(10, new MyComparator());
                 for (Node node : map.values()) {
-                        heap.offer(node);. visit 1point3acres.com for more.
+                        heap.offer(node);
                 }
 
                 StringBuilder sb = new StringBuilder();
